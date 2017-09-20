@@ -1,10 +1,10 @@
-project "ntoskrnl"
+project "kernel"
 	kind "ConsoleApp"
 	language "C"
-	targetsuffix (".exe")
-	objdir "../../obj/ntoskrnl"
+	targetsuffix ".exe"
 	files { "*.c", "*.h", "*.s", "*.S" }
-	includedirs { "." }
+	includedirs { ".", "../crt" }
+	links { "crt" }
 	
 	linkoptions {
 		"-Wl,-T,"..os.getcwd().."/link.ld", "-Wl,-Map=ntoskrnl.map",
@@ -14,4 +14,4 @@ project "ntoskrnl"
 	buildoptions { "-fomit-frame-pointer", "-ffreestanding", "-fno-exceptions" }
 
 	local binDir = os.getcwd().."/../../bin"
-	postbuildcommands { "$(PREFIX)objcopy -O binary "..binDir.."/ntoskrnl.exe "..binDir.."/ntoskrnl.bin" }
+	postbuildcommands { "$(PREFIX)objcopy -O binary "..binDir.."/kernel.exe "..binDir.."/kernel.bin" }

@@ -1,5 +1,4 @@
 #include "string.h"
-#include "main.h"
 #include "ctype.h"
 
 size_t strlen(const char * str)
@@ -72,17 +71,17 @@ void *memcpy(void *destination, const void *source, size_t num)
 int memcmp(const void * ptr1, const void * ptr2, size_t num)
 {
     unsigned i;
-    for(i = 0u; i < num && ((BYTE*)ptr1)[i] == ((BYTE*)ptr2)[i]; ++i);
+    for(i = 0u; i < num && ((char*)ptr1)[i] == ((char*)ptr2)[i]; ++i);
     if(i == num)
         return 0;
-    return ((BYTE*)ptr1)[i] - ((BYTE*)ptr2)[i];
+    return ((char*)ptr1)[i] - ((char*)ptr2)[i];
 }
 
 void *memset(void * ptr, int value, size_t num)
 {
     unsigned i;
     for(i = 0u; i < num; ++i)
-        ((BYTE*)ptr)[i] = value;
+        ((char*)ptr)[i] = value;
     return ptr;
 }
 

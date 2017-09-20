@@ -3,7 +3,7 @@ RafOS
 
 General
 -------
-RafOS is simple DOS-like operating system made by me in school years as hobby project.
+RafOS is simple DOS-like x86 operating system made by me in school years as hobby project.
 
 Building - Linux
 ----------------

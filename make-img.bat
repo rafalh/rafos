@@ -6,7 +6,7 @@ if %ERRORLEVEL% neq 0 pause
 
 mkdir B:\rafos
 mkdir B:\rafos\system32
-copy bin/ntoskrnl.bin B:\rafos\ntoskrnl.bin
+copy bin/kernel.bin B:\rafos\kernel.bin
 copy grub/menu.lst B:\grub
 
 imdisk -d -m B:

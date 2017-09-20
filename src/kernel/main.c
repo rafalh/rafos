@@ -13,6 +13,7 @@
 #include "floppy.h"
 #include "fat.h"
 #include "shell.h"
+#include "timer.h"
 
 void reboot()
 {

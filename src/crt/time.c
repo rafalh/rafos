@@ -1,7 +1,7 @@
 #include "time.h"
 #include "stdio.h"
+#include "crt_support.h"
 
-extern unsigned sys_start_time;
 struct tm tm_global;
 unsigned lpDaysInMonth[] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 const char *lpWeekDays[7] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };

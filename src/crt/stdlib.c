@@ -1,7 +1,7 @@
 #include "stdlib.h"
 #include "ctype.h"
-#include "main.h"
 #include "string.h"
+#include "sysdef.h"
 
 /*int abs(int n)
 {
@@ -165,18 +165,19 @@ void *bsearch(const void *key, const void *base, size_t num, size_t size, int (*
     unsigned i;
     int t;
     
-    while(num)   /* dla num = 1 tez dziala */
+    while(num)
     {
-        i = num / 2; /* indeks elementu srodkowego */
-        t = memcmp(((BYTE*)base) + i, key, size); /* porownanie */
+        i = num / 2;
+        t = comparator(((char*)base) + i*size, key);
         if(!t)
-            return ((BYTE*)base) + i;
+            return ((char*)base) + i*size;
         if(t > 0) /* else if( base[i]>key ) */
             num -= (num + 1) / 2;
         else     /* else if( base[i]<key ) */
         {
-            base = ((BYTE*)base) + i + 1;
-            num -= i + 1;
+        	++i;
+            base = ((char*)base) + i*size;
+            num -= i;
         }
     }
     return NULL;

@@ -2,4 +2,4 @@ timeout 3
 
 title RafOS
 root (fd0)
-kernel /rafos/ntoskrnl.bin
+kernel /rafos/kernel.bin

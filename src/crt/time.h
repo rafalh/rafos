@@ -3,7 +3,6 @@
 
 #include <stddef.h>
 #include "sysdef.h"
-#include "timer.h"
 
 #define CLOCKS_PER_SEC 1000
 
