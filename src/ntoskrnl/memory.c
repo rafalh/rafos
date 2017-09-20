@@ -11,20 +11,20 @@ frame_list_t free_mem_list = { 0, 0, &free_mem_0.frames[0], NULL };
 frames_array_buf_t allocated_mem_0 = { 0, NULL };
 frames_array_buf_t *allocated_mem = &allocated_mem_0; /* zajeta pamiec */
 
-PHYSICAL_ADDRESS **krnl_pgdir;
+//PHYSICAL_ADDRESS **krnl_pgdir;
 
 void init_memory()
 {
-    unsigned i, cr0;
+    /*unsigned cr0;
     krnl_pgdir = (PHYSICAL_ADDRESS**)((__end__ & 0xFFFFF000) + 0x1000);
     PHYSICAL_ADDRESS *pte0 = ((PHYSICAL_ADDRESS*)krnl_pgdir) + 0x1000;
     
-    /*for(i=1u; i<1024u; ++i)
+    for(unsigned i=1u; i<1024u; ++i)
         krnl_pgdir[i] = NULL; //not present
     
     krnl_pgdir[0] = (PHYSICAL_ADDRESS*)(((DWORD)pte0)|PAGE_PRESENT|PAGE_WRITABLE|PAGE_SUPERVISOR);
     
-    for(i=0u; i<1024u; ++i)
+    for(unsigned i=0u; i<1024u; ++i)
         pte0[i] = i*PAGE_SIZE|PAGE_PRESENT|PAGE_WRITABLE|PAGE_SUPERVISOR; //not present
     
     __asm__ __volatile__("mov %0, %%cr3":: "b"(krnl_pgdir));
@@ -39,11 +39,11 @@ PVOID MmAllocateContiguousMemory(SIZE_T NumberOfBytes, PHYSICAL_ADDRESS HighestA
     unsigned cPages = (NumberOfBytes + PAGE_SIZE - 1) / PAGE_SIZE, iHiPage = (HighestAcceptableAddress == 0xffffffff) ? (0x100000) : ((HighestAcceptableAddress + 1) / PAGE_SIZE); /* Zapobiegniecie przepelnieniu */
     frame_list_t *list, *frame;
     frames_array_buf_t *alloc_buf;
-    unsigned i, max_c, iPage;
+    unsigned max_c, iPage;
     
     if(!cPages)
         return NULL;
-        
+    
     /* Znajdowanie wolnej przsestrzeni */
     for(list = &free_mem_list; (frame = (list->next)); list = frame)
     {
@@ -59,7 +59,7 @@ PVOID MmAllocateContiguousMemory(SIZE_T NumberOfBytes, PHYSICAL_ADDRESS HighestA
                 for(frames_buf = free_mem; frames_buf; frames_buf = frames_buf->next)
                     if(frame >= (frames_buf->frames) && frame < (frames_buf->frames + frames_buf->c)) /* Bufor, w ktorym znajduje sie ramka */
                     {
-                        //for(i=0;i<frames_buf->c;++i)
+                        //for(unsigned i=0;i<frames_buf->c;++i)
                         //  printf("FR %x.c=%x, next: %x prv: %x|", frames_buf->frames+i, frames_buf->frames[i].count, frames_buf->frames[i].next, frames_buf->frames[i].prev);
                         --frames_buf->c;
                         
@@ -110,7 +110,7 @@ allocate_mem: /* Alokowanie pamiêci */
 
 VOID MmFreeContiguousMemory(PVOID BaseAddress)
 {
-    unsigned iPage = ((unsigned)BaseAddress) / PAGE_SIZE, i, cPages = 0, t, t2;
+    unsigned iPage = ((unsigned)BaseAddress) / PAGE_SIZE, i, cPages = 0;
     frames_array_buf_t *alloc_mem;
     frame_list_t *list, *frame;
     frames_buf_t *free_mem_buf;
@@ -196,6 +196,7 @@ PHYSICAL_ADDRESS MmGetPhysicalAddress(PVOID BaseAddress)
 {
     //if( krnl_pgdir[((DWORD)BaseAddress)>>22]&1 )
     //krnl_pgdir[((DWORD)BaseAddress)>>22];
+    return (PHYSICAL_ADDRESS) BaseAddress;
 }
 
 MM_SYSTEMSIZE MmQuerySystemSize(VOID)

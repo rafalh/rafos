@@ -3,50 +3,50 @@
 
 #include <stdint.h>
 
-#ifndef FORCEINLINE
-#define FORCEINLINE static
+#ifndef INLINE
+#define INLINE static __inline__
 #endif
 
-FORCEINLINE void _sti()
+INLINE void _sti()
 {
-    __asm__ __volatile__("sti");
+    __asm__ __volatile__ ("sti");
 }
 
-FORCEINLINE void _cli()
+INLINE void _cli()
 {
-    __asm__ __volatile__("cli");
+    __asm__ __volatile__ ("cli");
 }
 
-FORCEINLINE void _out(unsigned short port, unsigned char val)
+INLINE void _out(unsigned short port, unsigned char val)
 {
-    __asm__ __volatile__("outb %%al,%%dx"::"a"(val), "d"(port));
+    __asm__ __volatile__ ("outb %%al,%%dx"::"a"(val), "d"(port));
 }
 
-FORCEINLINE unsigned char _in(unsigned short port)
+INLINE unsigned char _in(unsigned short port)
 {
     unsigned char ret;
-    __asm__ __volatile__("inb %%dx,%%al":"=a"(ret):"d"(port));
+    __asm__ __volatile__ ("inb %%dx,%%al":"=a"(ret):"d"(port));
     return ret;
 }
 
-FORCEINLINE void _lgdt(void *addr)
+INLINE void _lgdt(void *addr)
 {
-    __asm__ __volatile__("lgdt %0"::"m"(*(int*)addr));
+    __asm__ __volatile__ ("lgdt %0"::"m"(*(int*)addr));
 }
 
-FORCEINLINE void _lidt(void *addr)
+INLINE void _lidt(void *addr)
 {
-    __asm__ __volatile__("lidt %0"::"m"(*(int*)addr));
+    __asm__ __volatile__ ("lidt %0"::"m"(*(int*)addr));
 }
 
-FORCEINLINE void _nop()
+INLINE void _nop()
 {
-    __asm__ __volatile__("nop");
+    __asm__ __volatile__ ("nop");
 }
 
-FORCEINLINE void _hlt()
+INLINE void _hlt()
 {
-    __asm__ __volatile__("hlt");
+    __asm__ __volatile__ ("hlt");
 }
 
 #endif // _ASM_H_

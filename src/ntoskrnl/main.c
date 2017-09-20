@@ -94,8 +94,6 @@ void fix_path(char *path)
 
 void ProcessCmdLine(void)
 {
-    unsigned i, j;
-    int t;
     dir_t *current_dir = FS_ROOT_DIR;
     
     for(;;)
@@ -172,7 +170,6 @@ void ProcessCmdLine(void)
                 dir_t *dir;
                 fileinfo_t fi;
                 char buf[64];
-                struct tm *tm;
                 unsigned cFiles = 0, cDirs = 0;
                 unsigned size = 0;
                 if(cmdbuf[3])
@@ -187,7 +184,7 @@ void ProcessCmdLine(void)
                     printf(" Directory of %s%s\n\n", lpCurrDir, (cmdbuf[3]) ? (cmdbuf + 4) : "");
                     while(!lpVolumes[lpCurrDir[0] - 'A'].fs->readdir(&lpVolumes[lpCurrDir[0] - 'A'], dir, &fi)) // lista plików
                     {
-                        if(fi.name[0] == '.' && (fi.name[1] == '\0') || (fi.name[1] == '.' && fi.name[2] == '\0')) // nie wyswietlam . i ..
+                        if ((fi.name[0] == '.' && fi.name[1] == '\0') || (fi.name[1] == '.' && fi.name[2] == '\0')) // nie wyswietlam . i ..
                             continue;
                         strftime(buf, sizeof(buf), "%Y-%m-%d  %H:%M", gmtime(&(fi.modify_time)));
                         if(fi.attributes & FS_DIR)

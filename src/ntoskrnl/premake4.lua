@@ -11,8 +11,6 @@ project "ntoskrnl"
 		"-nostdlib", "-shared", "-Wl,--image-base,0x400000", "-Wl,-entry=0",
 		"-Wl,--file-alignment,4096"
 	}
-	
---configuration "*.c"
 	buildoptions { "-fomit-frame-pointer", "-ffreestanding", "-fno-exceptions" }
 
 	local binDir = os.getcwd().."/../../bin"

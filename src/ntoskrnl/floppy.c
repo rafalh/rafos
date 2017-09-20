@@ -325,7 +325,7 @@ int floppy_rw(unsigned flp, unsigned track, BYTE cmd)
     //
     // Specify multitrack and MFM mode
     
-    unsigned st0, st1, st2, rcy, rhe, rse, bps, i;
+    unsigned i;
     
     floppy_motor_on(flp);
     outportb(FDC0_BASE + CONFIG_CONTROL_REG, floppy[flp].geom->speed);
@@ -367,16 +367,17 @@ int floppy_rw(unsigned flp, unsigned track, BYTE cmd)
         }
         
         // first read status information
+        unsigned st0, st1, st2;
         st0 = floppy_get_byte();
         st1 = floppy_get_byte();
         st2 = floppy_get_byte();
         /* These are cylinder/head/sector values, updated with some
         * rather bizarre logic, that I would like to understand. */
-        rcy = floppy_get_byte();
-        rhe = floppy_get_byte();
-        rse = floppy_get_byte();
+        floppy_get_byte(); // rcy
+        floppy_get_byte(); // rhe
+        floppy_get_byte(); // rse
         // bytes per sector, should be what we programmed in
-        bps = floppy_get_byte();
+        floppy_get_byte(); // bps
         
         if((st0 & 0xC8) || (st1 & 0xB5) || (st2 & 0x77))
         {

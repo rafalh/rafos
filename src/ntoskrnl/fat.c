@@ -48,10 +48,10 @@ int fat_readfile(struct volume_t *vol, char *buf, unsigned c, unsigned cluster)
 
 int fat_init(struct volume_t *vol)
 {
-    puts("fat_init");
     fat_data_t *fat_data;
     unsigned total_clusters, root_dir_sectors, data_sectors;
-    int i;
+
+    puts("fat_init");
     
     if(sizeof(fat_bs_t) != 512)
         puts("fat_bs_t size is wrong!");
@@ -113,16 +113,17 @@ int fat_getinfo(struct volume_t *vol, UINT32 *serial_nr, char *label, unsigned l
     
     if(max_comp_len)
         *max_comp_len = 11;
+    return 0;
 }
 
 int fat_opendir(struct volume_t *vol, dir_t *dir, const char *path, dir_t **result)
 {
-    unsigned len, i, dir_offset, data_offset;
+    unsigned len, i, dir_offset;
     fat_dir_entry_t *entry;
     
     *result = (dir_t*)malloc(sizeof(*dir));
     (*result)->i = 0;
-    data_offset = (((fat_bs_t*)vol->param)->reserved_sector_count + ((fat_bs_t*)vol->param)->table_count * ((fat_bs_t*)vol->param)->table_size_16 + (((fat_bs_t*)vol->param)->root_entry_count * sizeof(fat_dir_entry_t) + ((fat_bs_t*)vol->param)->bytes_per_sector - 1) / ((fat_bs_t*)vol->param)->bytes_per_sector) * ((fat_bs_t*)vol->param)->bytes_per_sector;
+    //unsigned data_offset = (((fat_bs_t*)vol->param)->reserved_sector_count + ((fat_bs_t*)vol->param)->table_count * ((fat_bs_t*)vol->param)->table_size_16 + (((fat_bs_t*)vol->param)->root_entry_count * sizeof(fat_dir_entry_t) + ((fat_bs_t*)vol->param)->bytes_per_sector - 1) / ((fat_bs_t*)vol->param)->bytes_per_sector) * ((fat_bs_t*)vol->param)->bytes_per_sector;
     
     if(dir == FS_ROOT_DIR)
     {
@@ -202,9 +203,8 @@ time_t fat_time(unsigned short date, unsigned short time)
 
 int fat_readdir(struct volume_t *vol, dir_t *dir, fileinfo_t *fi)
 {
-    unsigned i, len;
+    unsigned len;
     fat_dir_entry_t *entry;
-    struct tm tm;
     if(!dir || dir == FS_ROOT_DIR)
         return -1;
     for(; (dir->i) < (dir->c); ++(dir->i))

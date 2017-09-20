@@ -4,13 +4,8 @@ workspace "RafOS"
 	defines { "_CRT_SECURE_NO_WARNINGS" }
 	includedirs "include"
 	targetdir "bin"
-	objdir "obj"
-	buildoptions {
-		-- FIXME
-		"-Wno-int-to-pointer-cast",
-		"-Wno-pointer-to-int-cast",
-		"-Wno-implicit-function-declaration",
-	}
+
+	buildoptions "-Wall -std=c99"
 	
 	configuration "Debug"
 		defines { "DEBUG" }
