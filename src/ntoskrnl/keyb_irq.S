@@ -1,8 +1,10 @@
-#include "asm.inc"
+//#include "asm.inc"
 
-.code
+.intel_syntax noprefix
 
-PUBLIC _irq1
+.text
+
+.global _irq1
 _irq1:
   push gs
   push fs
@@ -13,7 +15,7 @@ _irq1:
   //mov ds, ax
   //mov es, ax
 
-EXTERN _keyb_irq
+.extern _keyb_irq
   call _keyb_irq
 
   mov al, 0x20 //EOI

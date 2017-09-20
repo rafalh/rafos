@@ -7,20 +7,26 @@ OUTPUT_FORMAT("pei-i386")
 ENTRY(_DllMain)
 SECTIONS {
    . = 0x400000;
-   .text : {
-      ___text_begin__ = . ;
-      *(.text)
+
+   ___text_begin__ = . ;
+   .mboot : {
+      *(.mboot)
       . = ALIGN(4096);
-      ___text_end__ = . ;
    }
+   .text : {
+      
+      *(.mboot)
+      *(.text*)
+      . = ALIGN(4096);
+   }
+   ___text_end__ = . ;
    
    ___data_begin__ = . ;
    .data : {
-      *(.data)
-      *(.data2)
-      *(.rdata)
+      *(.data*)
+      *(.rdata*)
       *(.drectve)
-      *(.reloc)
+      *(.reloc*)
       . = ALIGN(4096);
    }
    

@@ -1,7 +1,7 @@
 #ifndef _SYSDEF_H_
-#define	_SYSDEF_H_
+#define _SYSDEF_H_
 
-//#include <stddef.h>
+#include <stddef.h>
 
 #ifndef TRUE
 #define TRUE 1
@@ -31,16 +31,17 @@
 #define IN
 #define OUT
 
+#define VOID void
+
 typedef unsigned char BYTE, *PBYTE, *LPBYTE;
 typedef BYTE BOOL, BOOLEAN;
 typedef unsigned short UINT16, USHORT;
 typedef unsigned long UINT32, ULONG;
 typedef unsigned long long UINT64, ULONGLONG;
 typedef unsigned LPARAM;
-typedef void VOID, *PVOID, *LPVOID;
+typedef void *PVOID, *LPVOID;
 typedef UINT32 DWORD, *PDWORD, *LPDWORD;
 typedef UINT16 WORD, *PWORD, *LPWORD;
-typedef unsigned size_t;
 typedef size_t SIZE_T;
 typedef LPVOID HINSTANCE, HANDLE;
 

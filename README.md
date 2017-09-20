@@ -5,13 +5,12 @@ General
 -------
 RafOS is simple DOS-like operating system made by me in school years as hobby project.
 
-Building - Windows
-------------------
-Install MinGW.
-Install ImDisk from: http://www.ltr-data.se/opencode.html/
-
 Building - Linux
 ----------------
+
+Install tools:
+
+	apt install mingw-w64 mtools bochs bochs-x
 
 Generate Makefiles:
 
@@ -21,4 +20,35 @@ Compile project:
 
 	CC=i686-w64-mingw32-gcc CXX=i686-w64-mingw32-g++ make -C build
 
-TODO
+Build floppy image:
+
+	./make-img.sh
+
+Final floppy image is created in bin/floppy.img
+
+To test run Bosch simulator:
+
+	bochs
+
+Building - Windows
+------------------
+Install MinGW.
+Install ImDisk from: http://www.ltr-data.se/opencode.html/
+
+Generate Makefiles:
+
+	tools\windows\premake5 gmake
+
+Compile project:
+
+	mingw32-make -C build
+
+Build floppy image:
+
+	./make-img.bat
+
+Final floppy image is created in bin/floppy.img
+
+To test run Bosch simulator:
+
+	bochs -rc bochs-debug.txt

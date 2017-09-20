@@ -1,8 +1,8 @@
-#include "asm.inc"
+.intel_syntax noprefix
 
-.code
+.text
 
-PUBLIC _irq6
+.global _irq6
 _irq6:
   push gs
   push fs
@@ -13,7 +13,7 @@ _irq6:
   //mov ds, ax
   //mov es, ax
      
-EXTERN _floppy_irq
+.extern _floppy_irq
   call _floppy_irq
   
   mov al, 0x20 //EOI

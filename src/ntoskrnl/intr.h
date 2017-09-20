@@ -1,23 +1,48 @@
 #ifndef _INTR_H_
-#define	_INTR_H_
+#define _INTR_H_
 
-struct desc_t
+#include <stdint.h>
+
+#pragma pack(push, 1)
+
+struct IDTDescr
 {
-	unsigned short a, b, c, d;
+    uint16_t offset_1; // offset bits 0..15
+    uint16_t selector; // a code segment selector in GDT or LDT
+    uint8_t zero;      // unused, set to 0
+    uint8_t type_attr; // type and attributes, see below
+    uint16_t offset_2; // offset bits 16..31
 };
-extern struct desc_t idt[256];
 
-#define _set_gate(gate_addr, type, addr) {\
-	((unsigned short*)(gate_addr))[0] = (((unsigned)(addr))&0xffff); \
-	((unsigned short*)(gate_addr))[1] = 0x8; \
-	((unsigned short*)(gate_addr))[2] = (type); \
-	((unsigned short*)(gate_addr))[3] = (((unsigned)(addr))>>16); }
+struct IDTLimitAddress
+{
+    uint16_t limit;
+    uint32_t address;
+};
 
-#define IDT_P 0x8000
-#define IDT_32 0x800
+#pragma pack(pop)
 
-#define set_intr_gate(n, addr) _set_gate(&idt[n], IDT_32|IDT_P|0x600, addr)
-#define set_trap_gate(n, addr) _set_gate(&idt[n], IDT_32|IDT_P|0x700, addr)
-#define set_system_gate(n, addr) _set_gate(&idt[n], 3<<13|IDT_P|0x500, addr)
+extern struct IDTDescr g_IDT[256];
+
+#define _set_gate(n, type, addr) {\
+    g_IDT[n].offset_1 = (((uint32_t)(addr))&0xffff); \
+    g_IDT[n].selector = 0x8; \
+    g_IDT[n].zero = 0x0; \
+    g_IDT[n].type_attr = (type); \
+    g_IDT[n].offset_2 = (((uint32_t)(addr))>>16); }
+
+#define IDT_P      0x80
+#define IDT_DPL(n) ((n) << 5)
+#define IDT_S      0x10
+#define IDT_32     0x08
+#define IDT_TASK_GATE  0x05
+#define IDT_INTR_GATE  0x0E
+#define IDT_TRAP_GATE  0x0F
+
+#define set_intr_gate(n, addr) _set_gate(n, IDT_P|IDT_INTR_GATE, addr)
+#define set_trap_gate(n, addr) _set_gate(n, IDT_P|IDT_TRAP_GATE, addr)
+#define set_system_gate(n, addr) _set_gate(n, IDT_P|IDT_TASK_GATE|IDT_DPL(3), addr)
+
+void InitInterrupts(void);
 
 #endif /* _INTR_H_ */

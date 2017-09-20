@@ -1,5 +1,5 @@
 #ifndef _KEYB_H_
-#define	_KEYB_H_
+#define _KEYB_H_
 
 /*
  * Virtual Keys, Standard Set
@@ -223,17 +223,26 @@
 #define MK_NUMLOCK          0x0200
 #define MK_SCROLL           0x0400
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 void keyb_irq();
+
+#ifdef __cplusplus
+}
+#endif
+
 void keyb_init();
 void input_add(char c);
 char input_get();
 
 struct iobuf_t
 {
-	unsigned i, o;
-	unsigned char buf[64];
+    unsigned i, o;
+    unsigned char buf[64];
 };
 
-extern struct iobuf_t InBuffer; 
+extern struct iobuf_t InBuffer;
 
 #endif /* _KEYB_H_ */

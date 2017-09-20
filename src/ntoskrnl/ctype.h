@@ -1,5 +1,5 @@
 #ifndef _CTYPE_H_
-#define	_CTYPE_H_
+#define _CTYPE_H_
 
 #define tolower(c) (((c)>='A'&&(c)<='Z')?((c)-'A'+'a'):(c))
 #define toupper(c) (((c)>='a'&&(c)<='z')?((c)-'a'+'A'):(c))
