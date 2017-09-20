@@ -227,15 +227,15 @@
 extern "C" {
 #endif
 
-void keyb_irq();
+void keyb_irq(void);
 
 #ifdef __cplusplus
 }
 #endif
 
-void keyb_init();
+void keyb_init(void);
 void input_add(char c);
-char input_get();
+char input_get(void);
 
 struct iobuf_t
 {

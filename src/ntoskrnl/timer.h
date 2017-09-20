@@ -1,7 +1,7 @@
 #ifndef _TIMER_H_
 #define _TIMER_H_
 
-void timer_init();
+void timer_init(void);
 void set_pit_freq(unsigned long hz);
 unsigned KeTickCount(void);
 void Sleep(unsigned dwMilliseconds);
@@ -10,7 +10,7 @@ void Sleep(unsigned dwMilliseconds);
 extern "C" {
 #endif
 
-void timer_irq();
+void timer_irq(void);
 
 #ifdef __cplusplus
 }

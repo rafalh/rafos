@@ -51,7 +51,7 @@ typedef struct frames_buf_t
 
 void *malloc(size_t size);
 void free(void *ptr);
-void init_memory();
+void init_memory(void);
 
 PVOID MmAllocateContiguousMemory(SIZE_T NumberOfBytes, PHYSICAL_ADDRESS HighestAcceptableAddress);
 VOID MmFreeContiguousMemory(PVOID BaseAddress);

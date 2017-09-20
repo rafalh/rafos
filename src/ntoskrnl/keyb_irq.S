@@ -1,5 +1,3 @@
-//#include "asm.inc"
-
 .intel_syntax noprefix
 
 .text

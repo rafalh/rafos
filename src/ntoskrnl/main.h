@@ -5,10 +5,8 @@
 
 #define APIENTRY
 
-void reboot();
-void ProcessCmdLine();
+void reboot(void);
 void krnl_panic(const char *msg);
-void krnl_start(void);
 void mem_dump(const void *ptr, unsigned len);
 
 #endif /* _KERNEL_H_ */
