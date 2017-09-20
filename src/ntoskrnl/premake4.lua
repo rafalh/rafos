@@ -5,7 +5,6 @@ project "ntoskrnl"
 	objdir "../../obj/ntoskrnl"
 	files { "*.c", "*.h", "*.s", "*.S" }
 	includedirs { "." }
-	symbols "Off"
 	
 	linkoptions {
 		"-Wl,-T,"..os.getcwd().."/link.ld", "-Wl,-Map=ntoskrnl.map",
@@ -16,5 +15,5 @@ project "ntoskrnl"
 --configuration "*.c"
 	buildoptions { "-fomit-frame-pointer", "-ffreestanding", "-fno-exceptions" }
 
-	--local binDir = os.getcwd().."/../../bin"
-	--postbuildcommands { "$(PREFIX)objcopy -O binary "..binDir.."/ntoskrnl.exe "..binDir.."/ntoskrnl.bin" }
+	local binDir = os.getcwd().."/../../bin"
+	postbuildcommands { "$(PREFIX)objcopy -O binary "..binDir.."/ntoskrnl.exe "..binDir.."/ntoskrnl.bin" }

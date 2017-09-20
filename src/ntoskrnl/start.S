@@ -39,7 +39,7 @@ EXTERN ___bss_end__
 .equ MULTIBOOT_FLAGS,  MULTIBOOT_PAGE_ALIGN|MULTIBOOT_MEMORY_INFO|MULTIBOOT_AOUT_KLUDGE
 
 
-.section .mboot
+.section .mboot, "x"
 mboot:
 
 # #  .long HEX(1BADB002)	// Sygnatura

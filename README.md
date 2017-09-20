@@ -28,7 +28,7 @@ Final floppy image is created in bin/floppy.img
 
 To test run Bosch simulator:
 
-	bochs
+	bochs -rc bochs-debug.rc
 
 Building - Windows
 ------------------

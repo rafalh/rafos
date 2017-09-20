@@ -1,5 +1,5 @@
-timeout 10
+timeout 3
 
 title RafOS
 root (fd0)
-kernel /rafos/system32/ntoskrnl.exe
+kernel /rafos/ntoskrnl.bin

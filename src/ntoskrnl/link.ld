@@ -3,19 +3,18 @@
    "pei-i386" to ged rid of the "MZ" header. text
    and data sections should be close to each other. )
 */
-OUTPUT_FORMAT("pei-i386")
+OUTPUT_FORMAT("pe-i386")
 ENTRY(_DllMain)
 SECTIONS {
+
    . = 0x400000;
 
    ___text_begin__ = . ;
-   .mboot : {
+   .mboot : AT(0) {
       *(.mboot)
       . = ALIGN(4096);
    }
    .text : {
-      
-      *(.mboot)
       *(.text*)
       . = ALIGN(4096);
    }
@@ -27,10 +26,6 @@ SECTIONS {
       *(.rdata*)
       *(.drectve)
       *(.reloc*)
-      . = ALIGN(4096);
-   }
-   
-   .edata : {
       *(.edata)
       . = ALIGN(4096);
    }
@@ -38,7 +33,7 @@ SECTIONS {
 
    .bss : {
       ___bss_begin__ = . ;
-      *(.bss)
+      *(.bss*)
       *(COMMON)
       . = ALIGN(4096);
       ___bss_end__ = . ;
