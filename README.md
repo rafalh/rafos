@@ -5,6 +5,8 @@ General
 -------
 RafOS is simple DOS-like x86 operating system made by me in school years as hobby project.
 
+![Preview](screenshots/rafos.png)
+
 Building - Linux
 ----------------
 
@@ -22,13 +24,13 @@ Compile project:
 
 Build floppy image:
 
-	./make-img.sh
+	scripts/linux/make-img.sh
 
 Final floppy image is created in bin/floppy.img
 
 To test run Bosch simulator:
 
-	bochs -rc bochs-debug.rc
+	scripts/linux/run.sh
 
 Building - Windows
 ------------------
@@ -45,10 +47,10 @@ Compile project:
 
 Build floppy image:
 
-	./make-img.bat
+	cd scripts\windows && make-img.bat
 
 Final floppy image is created in bin/floppy.img
 
 To test run Bosch simulator:
 
-	bochs -rc bochs-debug.txt
+	cd scripts\windows && run.bat
