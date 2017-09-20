@@ -1,0 +1,2 @@
+filedisk /umount b:
+pause
