@@ -1,2 +1,3 @@
-filedisk /mount 0 D:\Projects\OS\floppy.img b:
-pause
+@echo off
+imdisk -a -t file -m B: -f "%CD%\floppy.img"
+if %ERRORLEVEL% neq 0 pause
