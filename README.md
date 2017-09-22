@@ -54,3 +54,7 @@ Final floppy image is created in bin/floppy.img
 To test run Bosch simulator:
 
 	cd scripts\windows && run.bat
+
+License
+-------
+The MIT license. See LICENSE.txt.
